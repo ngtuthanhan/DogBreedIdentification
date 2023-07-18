@@ -37,5 +37,4 @@ streamlit run app.py
 The application will launch in your browser
 
 ## License
-
 This project is licensed under the MIT License, granting users the freedom to modify, distribute, and use the code for both personal and commercial purposes.
