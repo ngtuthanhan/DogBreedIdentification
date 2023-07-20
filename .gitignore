@@ -1,0 +1,14 @@
+dataset
+__pycache__
+resnet18.pth
+resnet18.log
+resnet18.log.pickle
+resnet34.pth
+resnet34.log
+resnet34.log.pickle
+resnet50.pth
+resnet50.log
+resnet50.log.pickle
+resnet152.pth
+resnet152.log
+resnet152.log.pickle
