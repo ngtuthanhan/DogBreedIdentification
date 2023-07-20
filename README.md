@@ -57,12 +57,5 @@ To deploy the dog breed classification model using Streamlit, follow these steps
 streamlit run app.py
 ```
 The application will launch in your browser
-
-Alternative way is using Docker,
-```
-sudo docker build -t image_classification_app .
-sudo docker volume create dataset_volume
-sudo docker run -p 8501:8501 -v dataset_volume:/app/dataset -v /path/to/local/dataset:/app/dataset image_classification_app
-```
 ## License
 This project is licensed under the MIT License, granting users the freedom to modify, distribute, and use the code for both personal and commercial purposes.
