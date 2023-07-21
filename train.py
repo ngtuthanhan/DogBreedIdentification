@@ -22,11 +22,13 @@ def train(model, optimizer, criterion, scheduler, train_loader, val_loader, devi
 
     if resume:
         model, optimizer, start_epoch = load_checkpoint(model, optimizer, checkpoint, device)
+        with open(file_name + '.pickle', 'rb') as handle:
+            history = pickle.load(handle)
     
     for epoch in range(start_epoch, num_epochs):
         if streamlit:
-            st.write(f"Epoch: {epoch+1}/{num_epochs}")
-            st.write("---------------------------")
+            st.text(f"Epoch: {epoch+1}/{num_epochs}")
+            st.text("---------------------------")
         logging.info(f"Epoch: {epoch+1}/{num_epochs}")
         logging.info("---------------------------")
         
@@ -56,13 +58,13 @@ def train(model, optimizer, criterion, scheduler, train_loader, val_loader, devi
                 train_loss = train_loss / (i+1) / len(labels)
                 train_acc = 100.0 * correct / total
                 if streamlit:
-                    st.write(f"Step = {i+1}, Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
+                    st.text(f"Step = {i+1}, Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
                 logging.info(f"Step = {i+1}, Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
     
         train_loss /= len(train_loader)
         train_acc = 100.0 * correct / total
         if streamlit:
-            st.write(f"Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
+            st.text(f"Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
         logging.info(f"Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
         
         # Validation
@@ -134,8 +136,7 @@ if __name__ == '__main__':
     if args.resume:
         logging.basicConfig(filename=args.logging_path, level=logging.INFO, filemode='a')
     else:
-        logging.basicConfig(filename=args.logging_path, filemode='w', level=logging.INFO,
-                            format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.basicConfig(filename=args.logging_path, filemode='w', level=logging.INFO)
 
     # Define required variables
     train_split = scipy.io.loadmat(args.train_split)

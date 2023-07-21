@@ -88,7 +88,6 @@ def handle_data(files, labels, class_names, batch_size, num_workers):
     # Create custom datasets
     dataset = CustomDataset(files, labels, class_names, transform=transform)
 
-
     # Create data loader
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
     return loader
