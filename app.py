@@ -106,23 +106,24 @@ def main():
         st.text(f"Test Loss: {test_loss:.4f} | Test Accuracy: {test_accuracy:.2f}%")
         with open(logging_path + ".pickle", "rb") as handle:
             history = pickle.load(handle)
-        convergence_plot = plot_convergence(history['train_loss_hist'], history['train_acc_hist'], history['val_loss_hist'], history['val_acc_hist'])
+        convergence_plot = plot_convergence(history['train_loss_history'], history['val_loss_history'], history['train_acc_history'], history['val_acc_history'])
         st.pyplot(convergence_plot)
     else:
         logging_path = st.text_input("Enter the path to the training log file", "loggingINFO.log")
         
         if logging_path:
             display_training_log(logging_path)
-            with open(logging_path + ".pickle", "rb") as handle:
-                history = pickle.load(handle)
+            model, optimizer, _ = load_checkpoint(model, optimizer, checkpoint_path, device)
             test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)
             st.text(f"Test Loss: {test_loss:.4f} | Test Accuracy: {test_accuracy:.2f}%")
-            convergence_plot = plot_convergence(history['train_loss_hist'], history['train_acc_hist'], history['val_loss_hist'], history['val_acc_hist'])
+
+            with open(logging_path + ".pickle", "rb") as handle:
+                history = pickle.load(handle)
+            
+            convergence_plot = plot_convergence(history['train_loss_history'], history['val_loss_history'], history['train_acc_history'], history['val_acc_history'])
             st.pyplot(convergence_plot)
         
-        model, optimizer, _ = load_checkpoint(model, optimizer, checkpoint_path, device)
-        test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)
-        st.text(f"Test Loss: {test_loss:.4f} | Test Accuracy: {test_accuracy:.2f}%")
+        
 
 if __name__ == "__main__":
     with open('style.css', 'r') as f:
