@@ -33,7 +33,7 @@ pip install -r requirements.txt
 python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet18 --checkpoint_path resnet18.pth --logging_path resnet18.log
 python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet34 --checkpoint_path resnet34.pth --logging_path resnet34.log
 python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet50 --checkpoint_path resnet50.pth --logging_path resnet50.log
-python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet152 --checkpoint_path reset152.pth --logging_path reset152.log
+python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet152 --checkpoint_path reset152.pth --logging_path resnet152.log
 ```
 5. Evaluate the model's performance, for example
 ```
@@ -41,14 +41,12 @@ python3 evaluate.py --data_path dataset/Images --test_split dataset/test_list.ma
 ```
 5. Evaluate the model's performance, for example
 ```
-python3 evaluate.py --data_path dataset/Images --test_split dataset/test_list.mat --model resnet50 --checkpoint_path resnet50.pth
---reduced_amount 0.8
+python3 evaluate.py --data_path dataset/Images --test_split dataset/test_list.mat --model resnet50 --checkpoint_path resnet50.pth --reduced_amount 0.8
 ```
 7. Resume training the model, for example
 ```
 python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet18 --checkpoint_path resnet18.pth --logging_path resnet18.log --resume True --num_epochs 200
 ```
-
 
 ## Model Deployment
 To deploy the dog breed classification model using Streamlit, follow these steps:
