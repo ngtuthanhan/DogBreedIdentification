@@ -39,7 +39,7 @@ python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat
 ```
 python3 evaluate.py --data_path dataset/Images --test_split dataset/test_list.mat --model resnet50 --checkpoint_path resnet50.pth
 ```
-5. Evaluate the model's performance, for example
+6. Evaluate the performance of model which reduces number of parameters , for example
 ```
 python3 evaluate.py --data_path dataset/Images --test_split dataset/test_list.mat --model resnet50 --checkpoint_path resnet50.pth --reduced_amount 0.8
 ```
