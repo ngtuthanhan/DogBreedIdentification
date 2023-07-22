@@ -8,13 +8,13 @@ import torch.nn as nn
 import torch.optim as optim
 import scipy.io
 from sklearn.model_selection import train_test_split
-from dataset import handle_data
+from DogBreedIdentification.dataloader.dataset import handle_data
 import logging
 import pickle
 from train import train as train_model
 from evaluate import evaluate
-from model import load_checkpoint
-from plot import plot_convergence_with_logging_file
+from model.model import load_checkpoint
+from model.plot import plot_convergence_with_logging_file
 
 def download_files():
     os.makedirs('dataset', exist_ok=True)

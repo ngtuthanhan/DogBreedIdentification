@@ -68,7 +68,7 @@ We have provided a checkpoint and log files already,
 |---|---|---|
 | Resnet-18 (reduced model size by 80%) | [resnet18.pth](https://drive.google.com/file/d/10mu9hmTkj7Igl7H1o4ZGJ3MdwPDGhLNi/) | [resnet18.log](https://drive.google.com/file/d/10ybKlGZ_JxWaoPR9Xg9faWeBQTG7OTs6/) | 
 | Resnet-34 (reduced model size by 80%) | [resnet34.pth](https://drive.google.com/file/d/1ahAfxluCZ0-aqSUYFC3sby278U4BgeMR/) | [resnet34.log](https://drive.google.com/file/d/1GR7Tma0dNtX-NuTLzfivQm0zGTmp0xOk/) | 
-| Resnet-50 (reduced model size by 80%) | [resnet50.pth]() | [resnet50.log]() | 
+| Resnet-50 (reduced model size by 80%) | [resnet50.pth](https://drive.google.com/file/d/1c2hqvX_nHSvFd52R6_RI5n4fH60LnEsY/) | [resnet50.log](https://drive.google.com/file/d/1SJdZ1E0JCFeA5G3KLeCoSPTbmfHcp509/) | 
 | Resnet-152 (reduced model size by 80%) | [resnet152.pth](https://drive.google.com/file/d/1A4nOLcHSRj16y9BikFR9sxHogAePnNoz/) | [resnet152.log](https://drive.google.com/file/d/1XQ2SDBFdyXZTzmopmqS3n2T0YK0qHAbF/) | 
 
 8. Evaluate the performance of model which was reduced model size , for example
@@ -80,7 +80,7 @@ The results can be found here,
 |---|---|
 | Resnet-18 (reduced model size by 80%) | 68.22% |
 | Resnet-34 (reduced model size by 80%) | 74.31% |
-| Resnet-50 (reduced model size by 80%) |  | 
+| Resnet-50 (reduced model size by 80%) | 77.83% | 
 | Resnet-152 (reduced model size by 80%) | 78.59% |
 
 ## Model Deployment
