@@ -163,7 +163,6 @@ if __name__ == '__main__':
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.num_epochs)
 
     if args.reduced_amount != 0:
-        print(args.reduced_amount)
         if args.trained_model_path != None:
             model, optimizer, _ = load_checkpoint(model, optimizer, args.trained_model_path, device)
         model = reduce_model_size(model, args.reduced_amount)
