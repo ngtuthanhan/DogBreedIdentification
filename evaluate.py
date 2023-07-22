@@ -5,8 +5,8 @@ import scipy.io
 import torch.optim as optim
 import torchvision.models as models
 import torch.nn as nn
-from dataset import handle_data
-from model import load_checkpoint, reduce_model_size
+from dataloader.dataset import handle_data
+from model.model import load_checkpoint, reduce_model_size
 
 def evaluate(model, criterion, data_loader, device):
     model.eval()
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=4, help='Number of workers for evaluation')
     parser.add_argument('--test_split', type=str, default='dataset/test_split.mat', help='Path to the test split files')
     parser.add_argument('--device', type=str, default='cpu', choices=['cpu', 'cuda'], help='Device to use for evaluation')
-    parser.add_argument('--reduced_model', type=bool, default=True, help='Amount reduction for evaluation')
+    parser.add_argument('--reduced_model', type=bool, default=False, help='Amount reduction for evaluation')
 
     # Parse the command-line arguments
     args = parser.parse_args()
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     # Load model
     if args.reduced_model == True:
-        model = reduce_model_size(model, 0.5)
+        model = reduce_model_size(model, 1.0)
     model, optimizer, _ = load_checkpoint(model, optimizer, args.checkpoint_path, device)
     
     # Evaluate the model
