@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.models as models
-from dataset import handle_data
+from .dataloader.dataset import handle_data
 from sklearn.model_selection import train_test_split
 import scipy.io
 import os
@@ -10,7 +10,7 @@ import argparse
 import logging
 import pickle
 import streamlit as st
-from model import load_checkpoint, save_checkpoint, reduce_model_size
+from .model.model import load_checkpoint, save_checkpoint, reduce_model_size
 from evaluate import evaluate
 
 

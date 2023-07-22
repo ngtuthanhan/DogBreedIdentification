@@ -71,7 +71,10 @@ We have provided a checkpoint and log files already,
 | Resnet-50 (reduced model size by 80%) | [resnet50.pth]() | [resnet50.log]() | 
 | Resnet-152 (reduced model size by 80%) | [resnet152.pth](https://drive.google.com/file/d/1A4nOLcHSRj16y9BikFR9sxHogAePnNoz/) | [resnet152.log](https://drive.google.com/file/d/1XQ2SDBFdyXZTzmopmqS3n2T0YK0qHAbF/) | 
 
-
+8. Evaluate the performance of model which was reduced model size , for example
+```
+python3 evaluate.py --data_path dataset/Images --test_split dataset/test_list.mat --model resnet50 --checkpoint_path checkpoints/resnet50.pth --reduced_model True
+```
 The results can be found here,
 | Model | Test Accuracy |
 |---|---|
