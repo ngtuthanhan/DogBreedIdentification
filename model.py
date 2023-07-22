@@ -1,5 +1,6 @@
 import torch
 import torch.nn.utils.prune
+import numpy as np
 
 def save_checkpoint(model, optimizer, checkpoint, epoch):
     """
@@ -70,3 +71,4 @@ def get_model_size(model):
 
     """
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
+

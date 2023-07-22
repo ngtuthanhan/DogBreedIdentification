@@ -44,7 +44,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=4, help='Number of workers for evaluation')
     parser.add_argument('--test_split', type=str, default='dataset/test_split.mat', help='Path to the test split files')
     parser.add_argument('--device', type=str, default='cpu', choices=['cpu', 'cuda'], help='Device to use for evaluation')
-    parser.add_argument('--reduced_amount', type=float, default=0.0, help='Amount reduction for evaluation')
+    parser.add_argument('--reduced_model', type=bool, default=True, help='Amount reduction for evaluation')
 
     # Parse the command-line arguments
     args = parser.parse_args()
@@ -83,8 +83,9 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.1)
 
     # Load model
+    if args.reduced_model == True:
+        model = reduce_model_size(model, 0.5)
     model, optimizer, _ = load_checkpoint(model, optimizer, args.checkpoint_path, device)
-    model = reduce_model_size(model, amount = args.reduced_amount)
     
     # Evaluate the model
     test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)

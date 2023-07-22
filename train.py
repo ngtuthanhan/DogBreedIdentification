@@ -10,20 +10,13 @@ import argparse
 import logging
 import pickle
 import streamlit as st
-from model import load_checkpoint, save_checkpoint
+from model import load_checkpoint, save_checkpoint, reduce_model_size
 from evaluate import evaluate
 
 
 # Training loop
-def train(model, optimizer, criterion, scheduler, train_loader, val_loader, device, checkpoint, logging, num_epochs, resume=False, freq_logging=10, streamlit=False):
+def train(model, optimizer, criterion, scheduler, train_loader, val_loader, device, save_path, logging, num_epochs, resume=False, freq_logging=10, streamlit=False):
     start_epoch = 0
-
-    history = {'train_loss_history': [], 'train_acc_history': [],  'val_loss_history': [], 'val_acc_history': []} 
-
-    if resume:
-        model, optimizer, start_epoch = load_checkpoint(model, optimizer, checkpoint, device)
-        with open(file_name + '.pickle', 'rb') as handle:
-            history = pickle.load(handle)
     
     for epoch in range(start_epoch, num_epochs):
         if streamlit:
@@ -97,20 +90,8 @@ def train(model, optimizer, criterion, scheduler, train_loader, val_loader, devi
         if streamlit:
             st.write(f"Val Loss: {val_loss:.4f} | Val Accuracy: {val_acc:.2f}%")
         logging.info(f"Val Loss: {val_loss:.4f} | Val Accuracy: {val_acc:.2f}%")
-        
-        # Save history
-        history['train_loss_history'].append(train_loss)
-        history['train_acc_history'].append(train_acc)
-        history['val_loss_history'].append(val_loss)
-        history['val_acc_history'].append(val_acc)
-        
     
-        save_checkpoint(model, optimizer, checkpoint, epoch + 1)  # Save checkpoint after each epoch
-
-        logger = logging.getLogger()
-        file_name = logger.handlers[0].baseFilename
-        with open(file_name + '.pickle', 'wb') as handle:
-            pickle.dump(history, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        save_checkpoint(model, optimizer, save_path, epoch + 1)  # Save checkpoint after each epoch
 
 
 if __name__ == '__main__':
@@ -118,8 +99,9 @@ if __name__ == '__main__':
 
     # Add the required arguments
     parser.add_argument('--data_path', type=str, help='Path to the training data file')
-    parser.add_argument('--checkpoint_path', type=str, default='checkpoint.pth', help='Path to save checkpoints')
-    parser.add_argument('--model', type=str, default='resnet50', help='Batch size for training')
+    parser.add_argument('--save_path', type=str, default='checkpoint.pth', help='Path to save checkpoints')
+    parser.add_argument('--trained_model_path', type=str, default=None, help='Path to trained model path')
+    parser.add_argument('--model', type=str, default='resnet50', choices=['resnet18', 'resnet34', 'resnet50', 'resnet152'], help='Model for training')
     parser.add_argument('--logging_path', type=str, default='training.log', help='Path to save logging file')
     parser.add_argument('--train_split', type=str, default='dataset/train_list.mat', help='Path to the train split files')
     parser.add_argument('--test_split', type=str, default='dataset/test_list.mat', help='Path to the train split files')
@@ -128,6 +110,7 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=4, help='Number of workers for training')
     parser.add_argument('--resume', type=bool, default=False, help='Continue training pre-trained model or not')
     parser.add_argument('--device', type=str, default='cpu', choices=['cpu', 'cuda'], help='Device to use for training')
+    parser.add_argument('--reduced_amount', type=float, default=0.0, help='Amount reduction for evaluation')
     
     # Parse the command-line arguments
     args = parser.parse_args()
@@ -160,13 +143,13 @@ if __name__ == '__main__':
     
     # Load pre-trained model
     if args.model == 'resnet18':
-        model = models.resnet18(pretrained=True)
+        model = models.resnet18(pretrained=True if args.resume == False and args.trained_model_path == None else False)
     elif args.model == 'resnet34':
-        model = models.resnet34(pretrained=True)
+        model = models.resnet34(pretrained=True if args.resume == False and args.trained_model_path == None else False)
     elif args.model == 'resnet50':
-        model = models.resnet50(pretrained=True)
+        model = models.resnet50(pretrained=True if args.resume == False and args.trained_model_path == None else False)
     elif args.model == 'resnet152':
-        model = models.resnet152(pretrained=True)
+        model = models.resnet152(pretrained=True if args.resume == False and args.trained_model_path == None else False)
 
     # Modify the last fully connected layer to match the number of classes (dog breeds)
     model.fc = nn.Linear(model.fc.in_features, num_classes)
@@ -179,9 +162,14 @@ if __name__ == '__main__':
     optimizer = optim.SGD(model.parameters(), lr=0.1)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.num_epochs)
 
-
+    if args.reduced_amount != 0:
+        print(args.reduced_amount)
+        if args.trained_model_path != None:
+            model, optimizer, _ = load_checkpoint(model, optimizer, args.trained_model_path, device)
+        model = reduce_model_size(model, args.reduced_amount)
+    
     # Train model
-    train(model, optimizer, criterion, scheduler, train_loader, val_loader, device, args.checkpoint_path, logging, num_epochs=args.num_epochs, resume=args.resume)  # Train the model
+    train(model, optimizer, criterion, scheduler, train_loader, val_loader, device, args.save_path, logging, num_epochs=args.num_epochs, resume=args.resume)  # Train the model
     
     # Evaluate the model
     test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)
