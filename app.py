@@ -14,7 +14,7 @@ import pickle
 from train import train as train_model
 from evaluate import evaluate
 from model import load_checkpoint
-from plot import plot_convergence
+from plot import plot_convergence_with_logging_file
 
 def download_files():
     os.makedirs('dataset', exist_ok=True)
@@ -65,7 +65,7 @@ def main():
     # Set the device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     # Checkpoint path input
-    checkpoint_path = st.text_input("Enter the path to the checkpoint file", "checkpoint.pth")
+    checkpoint_path = st.text_input("Enter the path to the checkpoint file", "checkpoints/resnet50.pth")
 
     # Create data loaders
     train_loader = handle_data(train_files, train_labels, class_names, batch_size=64, num_workers=4)
@@ -98,18 +98,16 @@ def main():
     optimizer = optim.SGD(model.parameters(), lr=0.1)
     scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)
     if train:
-        logging_path = st.text_input("Enter the path for saving logging file", "loggingINFO.log")
+        logging_path = st.text_input("Enter the path for saving logging file", "checkpoints/resnet50.log")
         logging.basicConfig(filename=logging_path, filemode='w', level=logging.INFO)
         st.write("Model will be trained for 10 epochs")
         train_model(model, optimizer, criterion, scheduler, train_loader, val_loader, device, checkpoint_path, logging, num_epochs=1, resume=False, freq_logging=10, streamlit=True)
         test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)
         st.text(f"Test Loss: {test_loss:.4f} | Test Accuracy: {test_accuracy:.2f}%")
-        with open(logging_path + ".pickle", "rb") as handle:
-            history = pickle.load(handle)
-        convergence_plot = plot_convergence(history['train_loss_history'], history['val_loss_history'], history['train_acc_history'], history['val_acc_history'])
+        convergence_plot = plot_convergence_with_logging_file(logging_path)
         st.pyplot(convergence_plot)
     else:
-        logging_path = st.text_input("Enter the path to the training log file", "loggingINFO.log")
+        logging_path = st.text_input("Enter the path to the training log file", "checkpoints/resnet50.log")
         
         if logging_path:
             display_training_log(logging_path)
@@ -117,12 +115,8 @@ def main():
             test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)
             st.text(f"Test Loss: {test_loss:.4f} | Test Accuracy: {test_accuracy:.2f}%")
 
-            with open(logging_path + ".pickle", "rb") as handle:
-                history = pickle.load(handle)
-            
-            convergence_plot = plot_convergence(history['train_loss_history'], history['val_loss_history'], history['train_acc_history'], history['val_acc_history'])
+            convergence_plot = plot_convergence_with_logging_file(logging_path)
             st.pyplot(convergence_plot)
-        
         
 
 if __name__ == "__main__":
