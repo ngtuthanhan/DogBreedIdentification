@@ -8,13 +8,13 @@ import torch.nn as nn
 import torch.optim as optim
 import scipy.io
 from sklearn.model_selection import train_test_split
-from DogBreedIdentification.dataloader.dataset import handle_data
+from dataset import handle_data
 import logging
 import pickle
 from train import train as train_model
 from evaluate import evaluate
-from model.model import load_checkpoint
-from model.plot import plot_convergence_with_logging_file
+from model import load_checkpoint
+from plot import plot_convergence_with_logging_file
 
 def download_files():
     os.makedirs('dataset', exist_ok=True)
@@ -28,9 +28,12 @@ def download_files():
 
 
 def display_training_log(log_file):
-    with open(log_file, 'r') as f:
-        log_content = f.read()
-    st.text(log_content)
+    if os.path.exists(log_file):
+        with open(log_file, 'r') as f:
+            log_content = f.read()
+        st.text(log_content)
+    else:
+        st.write('File is not exist')
 
 # Main Streamlit app
 def main():
@@ -73,7 +76,7 @@ def main():
     test_loader = handle_data(test_files, test_labels, class_names, batch_size=64, num_workers=4)
 
     # Train or not input
-    st.write("You can chose between training model or show the progress of existed trained model")
+    st.write("You can chose between training model or showing the progress of existed trained model")
     col1, col2 = st.columns([0.8, 0.2])
     with col2:
         st.write("")
@@ -115,9 +118,10 @@ def main():
             test_loss, test_accuracy = evaluate(model, criterion, test_loader, device)
             st.write(f"Test Loss: {test_loss:.4f} | Test Accuracy: {test_accuracy:.2f}%")
             convergence_plot = plot_convergence_with_logging_file(logging_path)
-            st.pyplot(convergence_plot)    
+            st.pyplot(convergence_plot)
+
 
 if __name__ == "__main__":
-    with open('style/style.css', 'r') as f:
+    with open('style.css', 'r') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     main()
