@@ -13,7 +13,7 @@ To train the dog breed classification model, follow these steps:
 1. Clone this GitHub repository and navigate to the project's directory.
 ```
 git clone https://github.com/ngtuthanhan/DogBreedIdentification.git
-cd dog-breed-classification
+cd DogBreedIdentification
 ```
 2. Download and extract the Stanford Dogs dataset
 ```
