@@ -38,10 +38,10 @@ python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat
 We have provided a checkpoint and log files already,
 | Model | Checkpoint | Logging file | 
 |---|---|---|
-| Resnet-18 (reduced model size by 80%) | [resnet18.pth](https://drive.google.com/file/d/1pFR-LxpWXWZanBMuBlr_GGy3nYjEUn0B/) | [resnet18.log](https://drive.google.com/file/d/1OWyozYko3a3Z4ExK03dwLLEkAQci0O1U/) | 
-| Resnet-34 (reduced model size by 80%) | [resnet34.pth](https://drive.google.com/file/d/1MF9Dd0lo5lUNsbc43olkyO_U1Xr0pTXR/) | [resnet34.log](https://drive.google.com/file/d/1vjF16NIHQZxxdpAzJG72KPVHhEuR-T-d/) | 
-| Resnet-50 (reduced model size by 80%) | [resnet50.pth](https://drive.google.com/file/d/1K6203r2D-5O_-C885ToP15nueHtUBImf/) | [resnet50.log](https://drive.google.com/file/d/1m9WEEYx9pTcYiVgqo7-9XXvHs500GEaV/) | 
-| Resnet-152 (reduced model size by 80%) | [resnet152.pth](https://drive.google.com/file/d/1eQ7LEsGi8xyFlypFM9KIDAWTvWhVtNaX/) | [resnet152.log](https://drive.google.com/file/d/1ekNi5ZCrW4BdwRya93NgsDxADkZANFKP/) | 
+| Resnet-18 | [resnet18.pth](https://drive.google.com/file/d/1pFR-LxpWXWZanBMuBlr_GGy3nYjEUn0B/) | [resnet18.log](https://drive.google.com/file/d/1OWyozYko3a3Z4ExK03dwLLEkAQci0O1U/) | 
+| Resnet-34 | [resnet34.pth](https://drive.google.com/file/d/1MF9Dd0lo5lUNsbc43olkyO_U1Xr0pTXR/) | [resnet34.log](https://drive.google.com/file/d/1vjF16NIHQZxxdpAzJG72KPVHhEuR-T-d/) | 
+| Resnet-50 | [resnet50.pth](https://drive.google.com/file/d/1K6203r2D-5O_-C885ToP15nueHtUBImf/) | [resnet50.log](https://drive.google.com/file/d/1m9WEEYx9pTcYiVgqo7-9XXvHs500GEaV/) | 
+| Resnet-152 | [resnet152.pth](https://drive.google.com/file/d/1eQ7LEsGi8xyFlypFM9KIDAWTvWhVtNaX/) | [resnet152.log](https://drive.google.com/file/d/1ekNi5ZCrW4BdwRya93NgsDxADkZANFKP/) | 
 
 5. Evaluate the model's performance, for example
 ```
@@ -66,10 +66,10 @@ python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat
 We have provided a checkpoint and log files already,
 | Model | Checkpoint | Logging file | 
 |---|---|---|
-| Resnet-18 (reduced model size by 80%) | [resnet18.pth](https://drive.google.com/file/d/10mu9hmTkj7Igl7H1o4ZGJ3MdwPDGhLNi/) | [resnet18.log](https://drive.google.com/file/d/10ybKlGZ_JxWaoPR9Xg9faWeBQTG7OTs6/) | 
-| Resnet-34 (reduced model size by 80%) | [resnet34.pth](https://drive.google.com/file/d/1ahAfxluCZ0-aqSUYFC3sby278U4BgeMR/) | [resnet34.log](https://drive.google.com/file/d/1GR7Tma0dNtX-NuTLzfivQm0zGTmp0xOk/) | 
-| Resnet-50 (reduced model size by 80%) | [resnet50.pth](https://drive.google.com/file/d/1c2hqvX_nHSvFd52R6_RI5n4fH60LnEsY/) | [resnet50.log](https://drive.google.com/file/d/1SJdZ1E0JCFeA5G3KLeCoSPTbmfHcp509/) | 
-| Resnet-152 (reduced model size by 80%) | [resnet152.pth](https://drive.google.com/file/d/1A4nOLcHSRj16y9BikFR9sxHogAePnNoz/) | [resnet152.log](https://drive.google.com/file/d/1XQ2SDBFdyXZTzmopmqS3n2T0YK0qHAbF/) | 
+| Resnet-18 (reduced model size by 80%) | [resnet18_reduction.pth](https://drive.google.com/file/d/10mu9hmTkj7Igl7H1o4ZGJ3MdwPDGhLNi/) | [resnet18_reduction.log](https://drive.google.com/file/d/10ybKlGZ_JxWaoPR9Xg9faWeBQTG7OTs6/) | 
+| Resnet-34 (reduced model size by 80%) | [resnet34_reduction.pth](https://drive.google.com/file/d/1ahAfxluCZ0-aqSUYFC3sby278U4BgeMR/) | [resnet34_reduction.log](https://drive.google.com/file/d/1GR7Tma0dNtX-NuTLzfivQm0zGTmp0xOk/) | 
+| Resnet-50 (reduced model size by 80%) | [resnet50_reduction.pth](https://drive.google.com/file/d/1c2hqvX_nHSvFd52R6_RI5n4fH60LnEsY/) | [resnet50_reduction.log](https://drive.google.com/file/d/1SJdZ1E0JCFeA5G3KLeCoSPTbmfHcp509/) | 
+| Resnet-152 (reduced model size by 80%) | [resnet152_reduction.pth](https://drive.google.com/file/d/1A4nOLcHSRj16y9BikFR9sxHogAePnNoz/) | [resnet152_reduction.log](https://drive.google.com/file/d/1XQ2SDBFdyXZTzmopmqS3n2T0YK0qHAbF/) | 
 
 8. Evaluate the performance of the model which was reduced model size, for example
 ```
