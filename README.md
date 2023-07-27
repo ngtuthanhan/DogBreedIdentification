@@ -58,7 +58,7 @@ The results can be found here, these models were trained in the same setting, on
 ```
 python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet18 --checkpoint_path checkpoints/resnet18.pth --logging_path checkpoints/resnet18.log --resume True --num_epochs 200
 ```
-7. For reducing the model's parameters by 80%, we use l1prunning. The network was trained for a short time, then prunes the network and resets it back to initialization. To produce easily, we use the trained network saved in model checkpoint files  `resnet18.pth`, `resnet34.pth`, `resnet50.pth`, `resnet152.pth`.
+7. For reducing the model's parameters by 80%, we use L1 prunning. The network should be trained for a short time, then prunes the network and resets it back to initialization. To produce easily, we use the trained network saved in model checkpoint files  `resnet18.pth`, `resnet34.pth`, `resnet50.pth`, `resnet152.pth`.
 ```
 python3 train.py --data_path dataset/Images --train_split dataset/train_list.mat --test_split dataset/test_list.mat --model resnet50 --save_path checkpoints/resnet50_reduction.pth --trained_model_path checkpoints/resnet50.pth --logging_path checkpoints/resnet50_reduction.log --reduced_amount 0.8 
 ```
@@ -84,7 +84,7 @@ The results can be found here,
 | Resnet-152 (reduced model size by 80%) | 78.59% |
 
 ## Model Deployment
-To deploy the dog breed classification model using Streamlit, follow these steps:
+To deploy the dog breed classification model using Streamlit, follow this step:
 1. Run the Streamlit application:
 ```
 streamlit run app.py
